@@ -1,0 +1,17 @@
+services:
+  focusloop:
+    build: .
+    container_name: focusloop-app
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    volumes:
+      # Persists SQLite database file on host disk
+      - focusloop_data:/app/server
+
+volumes:
+  focusloop_data:
